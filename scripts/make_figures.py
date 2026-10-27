@@ -21,7 +21,7 @@ from matplotlib.patches import FancyBboxPatch
 import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from run_demo import MultiAgentCoordinator  # noqa: E402
+from src.agents.multi_agent_coordinator import MultiAgentCoordinator  # noqa: E402
 
 OUT_DIR = "docs/figures"
 DPI = 200

@@ -1,15 +1,23 @@
 """
-Multi-Agent Analytics System
-Different agents specialize in different types of analysis
-They learn to coordinate and share insights
+Specialised analytics agents and the coordinator that runs them.
+
+Three agents (Statistical, Geographic, Temporal) each decide from the dataset's
+context whether to take part, run their analysis, share the result with the
+other agents, and update a Q-value for that context from the reward.
+
+This module is used by run_demo.py, scripts/make_figures.py and the
+visualisation and evaluation code in src/.
 """
+
+import random
+import warnings
+from collections import defaultdict, deque
 
 import numpy as np
 import pandas as pd
-import random
-from collections import defaultdict, deque
-import warnings
+
 warnings.filterwarnings('ignore')
+
 
 class BaseAnalyticsAgent:
     """Base class for specialized analytics agents"""
@@ -26,45 +34,40 @@ class BaseAnalyticsAgent:
         self.episode_count = 0
         
         # Multi-agent communication
-        self.message_queue = deque(maxlen=10)  # Store messages from other agents
+        self.message_queue = deque(maxlen=10)
         self.shared_insights = {}
         
-        print(f"🤖 {self.name} ({self.specialty}) initialized")
+        # Learning history for visualization
+        self.learning_history = []
+        
+        print(f"[INIT] {self.name} ({self.specialty}) initialized")
     
     def extract_context(self, data):
         """Extract relevant context for this agent's specialty"""
         context = {}
-        
-        # Common context features
         context['data_size'] = 'large' if len(data) > 5000 else 'small'
         context['n_numeric'] = len(data.select_dtypes(include=[np.number]).columns)
         context['n_categorical'] = len(data.select_dtypes(include=['object']).columns)
         
-        # Add specialty-specific context
         if self.specialty == 'statistical':
             context['has_correlations'] = context['n_numeric'] >= 2
         elif self.specialty == 'geographic':
             context['has_region'] = any('region' in col.lower() for col in data.columns)
         elif self.specialty == 'temporal':
-            context['has_date'] = any('date' in col.lower() or 'time' in col.lower() for col in data.columns)
+            context['has_date'] = any('date' in col.lower() or 'time' in col.lower() or 'month' in col.lower() for col in data.columns)
         
         return '_'.join([f"{k}:{v}" for k, v in sorted(context.items())])
     
     def receive_message(self, sender, message_type, content):
         """Receive communication from another agent"""
-        message = {
-            'sender': sender,
-            'type': message_type,
-            'content': content,
-            'timestamp': len(self.message_queue)
-        }
+        message = {'sender': sender, 'type': message_type, 'content': content, 'timestamp': len(self.message_queue)}
         self.message_queue.append(message)
-        print(f"📨 {self.name} received {message_type} from {sender}")
+        print(f"[MSG] {self.name} received {message_type} from {sender}")
     
     def send_message(self, recipient, message_type, content):
         """Send message to another agent"""
         recipient.receive_message(self.name, message_type, content)
-        print(f"📤 {self.name} sent {message_type} to {recipient.name}")
+        print(f"[MSG] {self.name} sent {message_type} to {recipient.name}")
     
     def calculate_reward(self, action_result):
         """Calculate reward based on analysis quality"""
@@ -73,17 +76,15 @@ class BaseAnalyticsAgent:
         
         base_reward = 1.0
         
-        # Specialty-specific bonuses
-        if self.specialty == 'statistical' and 'correlations' in str(action_result):
+        if self.specialty == 'statistical' and action_result.get('correlations'):
+            base_reward += len(action_result['correlations']) * 0.3
+        elif self.specialty == 'geographic' and action_result.get('best_region'):
             base_reward += 0.5
-        elif self.specialty == 'geographic' and 'region' in str(action_result):
-            base_reward += 0.5
-        elif self.specialty == 'temporal' and 'trend' in str(action_result):
+        elif self.specialty == 'temporal' and action_result.get('seasonal_pattern'):
             base_reward += 0.5
         
-        # Collaboration bonus - if we used insights from other agents
         if len(self.message_queue) > 0:
-            base_reward += 0.2  # Bonus for coordination
+            base_reward += 0.2  # Collaboration bonus
         
         return base_reward
     
@@ -96,20 +97,25 @@ class BaseAnalyticsAgent:
         self.action_counts[context] += 1
         self.total_reward += reward
         
-        print(f"📈 {self.name} Q-value: {old_q:.3f} → {new_q:.3f} (reward: {reward:.2f})")
+        # Record learning history for visualization
+        self.learning_history.append({
+            'episode': len(self.learning_history) + 1,
+            'context': context,
+            'reward': reward,
+            'q_value': new_q
+        })
+        
+        print(f"[LEARN] {self.name} Q-value: {old_q:.3f} -> {new_q:.3f} (reward: {reward:.2f})")
     
-    def should_act(self, context, threshold=0.5):
-        """Decide whether to perform analysis based on learned Q-values"""
-        q_value = self.action_values[context]
-        confidence = q_value + random.uniform(-0.1, 0.1)  # Small randomness
-        
-        # If we have no experience, encourage exploration
-        if context not in self.action_counts or self.action_counts[context] == 0:
-            confidence += 0.6  # Exploration bonus for new contexts
-        
-        decision = confidence > threshold
-        print(f"🤔 {self.name} decision: {'ACT' if decision else 'PASS'} (confidence: {confidence:.3f})")
-        return decision
+    def should_act(self, context):
+        """Simplified decision - agents will participate if they can help"""
+        if self.specialty == 'statistical':
+            return 'has_correlations:True' in context
+        elif self.specialty == 'geographic':
+            return 'has_region:True' in context
+        elif self.specialty == 'temporal':
+            return 'has_date:True' in context
+        return False
 
 class StatisticalAgent(BaseAnalyticsAgent):
     """Agent specialized in statistical analysis"""
@@ -128,30 +134,27 @@ class StatisticalAgent(BaseAnalyticsAgent):
         # Calculate correlations
         corr_matrix = data[numeric_cols].corr()
         
-        # Find strong correlations
         strong_corrs = []
         for i in range(len(corr_matrix.columns)):
             for j in range(i+1, len(corr_matrix.columns)):
                 col1, col2 = corr_matrix.columns[i], corr_matrix.columns[j]
                 corr_val = corr_matrix.iloc[i, j]
-                if abs(corr_val) > 0.5:
+                if abs(corr_val) > 0.4:
                     strong_corrs.append((col1, col2, corr_val))
         
-        print(f"🔍 Found {len(strong_corrs)} strong correlations")
+        print(f"[ANALYSIS] Found {len(strong_corrs)} strong correlations")
         for col1, col2, corr in strong_corrs[:3]:
             direction = "positive" if corr > 0 else "negative"
-            print(f"  {col1} ↔ {col2}: {corr:.3f} ({direction})")
+            print(f"  {col1} <-> {col2}: {corr:.3f} ({direction})")
         
         result = {
             'agent': self.name,
             'analysis_type': 'statistical',
             'correlations': strong_corrs,
-            'insights': f"Found {len(strong_corrs)} significant correlations"
+            'insights': f"Statistical analysis found {len(strong_corrs)} significant correlations"
         }
         
-        # Share insights with other agents (we'll implement this)
         self.shared_insights['correlations'] = strong_corrs
-        
         return result
 
 class GeographicAgent(BaseAnalyticsAgent):
@@ -164,7 +167,6 @@ class GeographicAgent(BaseAnalyticsAgent):
         """Perform geographic analysis"""
         print(f"\n=== {self.name}: Geographic Analysis ===")
         
-        # Find region column
         region_col = None
         for col in data.columns:
             if 'region' in col.lower() or 'location' in col.lower():
@@ -172,10 +174,10 @@ class GeographicAgent(BaseAnalyticsAgent):
                 break
         
         if region_col is None:
-            print("❌ No geographic column found")
+            print("[SKIP] No geographic column found")
             return None
         
-        # Find target metric (prefer sales/revenue)
+        # Find target metric
         numeric_cols = data.select_dtypes(include=[np.number]).columns
         target_col = None
         for col in numeric_cols:
@@ -195,9 +197,9 @@ class GeographicAgent(BaseAnalyticsAgent):
         best_region = regional_stats['mean'].idxmax()
         worst_region = regional_stats['mean'].idxmin()
         
-        print(f"📍 Regional {target_col} analysis:")
-        print(f"  🏆 Best: {best_region} (avg: {regional_stats.loc[best_region, 'mean']:.2f})")
-        print(f"  ⚠️  Worst: {worst_region} (avg: {regional_stats.loc[worst_region, 'mean']:.2f})")
+        print(f"[ANALYSIS] Regional {target_col} analysis:")
+        print(f"  Best: {best_region} (avg: {regional_stats.loc[best_region, 'mean']:.2f})")
+        print(f"  Worst: {worst_region} (avg: {regional_stats.loc[worst_region, 'mean']:.2f})")
         
         result = {
             'agent': self.name,
@@ -205,12 +207,7 @@ class GeographicAgent(BaseAnalyticsAgent):
             'best_region': best_region,
             'worst_region': worst_region,
             'regional_stats': regional_stats.to_dict(),
-            'insights': f"Regional analysis: {best_region} outperforms {worst_region}"
-        }
-        
-        self.shared_insights['regional_performance'] = {
-            'best': best_region,
-            'worst': worst_region
+            'insights': f"Geographic analysis: {best_region} outperforms {worst_region}"
         }
         
         return result
@@ -225,52 +222,36 @@ class TemporalAgent(BaseAnalyticsAgent):
         """Perform temporal analysis"""
         print(f"\n=== {self.name}: Temporal Analysis ===")
         
-        # Find date/time columns
-        date_cols = [col for col in data.columns 
-                    if 'date' in col.lower() or 'time' in col.lower()]
+        if 'month' in data.columns and 'year' in data.columns:
+            print("[ANALYSIS] Using month/year for seasonal analysis")
+            
+            numeric_cols = data.select_dtypes(include=[np.number]).columns
+            target_col = None
+            for col in numeric_cols:
+                if 'sales' in col.lower() or 'revenue' in col.lower() or 'total' in col.lower():
+                    target_col = col
+                    break
+            
+            if target_col:
+                monthly_avg = data.groupby('month')[target_col].mean().round(2)
+                
+                best_month = monthly_avg.idxmax()
+                worst_month = monthly_avg.idxmin()
+                
+                print(f"[ANALYSIS] Seasonal analysis of {target_col}:")
+                print(f"  Best month: {best_month} (avg: {monthly_avg[best_month]:.2f})")
+                print(f"  Worst month: {worst_month} (avg: {monthly_avg[worst_month]:.2f})")
+                
+                result = {
+                    'agent': self.name,
+                    'analysis_type': 'temporal',
+                    'best_period': f"Month {best_month}",
+                    'seasonal_pattern': monthly_avg.to_dict(),
+                    'insights': f"Temporal analysis: Month {best_month} shows peak performance"
+                }
+                return result
         
-        if not date_cols:
-            # Try month/year columns
-            if 'month' in data.columns and 'year' in data.columns:
-                print("🗓️ Using month/year for temporal analysis")
-                
-                # Simple seasonal analysis
-                monthly_avg = data.groupby('month').agg({
-                    col: 'mean' for col in data.select_dtypes(include=[np.number]).columns
-                }).round(2)
-                
-                # Find target metric
-                target_col = None
-                for col in monthly_avg.columns:
-                    if 'sales' in col.lower() or 'revenue' in col.lower():
-                        target_col = col
-                        break
-                
-                if target_col:
-                    best_month = monthly_avg[target_col].idxmax()
-                    worst_month = monthly_avg[target_col].idxmin()
-                    
-                    print(f"📈 Seasonal analysis of {target_col}:")
-                    print(f"  🏆 Best month: {best_month} (avg: {monthly_avg.loc[best_month, target_col]:.2f})")
-                    print(f"  ⚠️  Worst month: {worst_month} (avg: {monthly_avg.loc[worst_month, target_col]:.2f})")
-                    
-                    result = {
-                        'agent': self.name,
-                        'analysis_type': 'temporal',
-                        'best_period': f"Month {best_month}",
-                        'worst_period': f"Month {worst_month}",
-                        'seasonal_pattern': monthly_avg[target_col].to_dict(),
-                        'insights': f"Seasonal analysis: Month {best_month} shows peak performance"
-                    }
-                    
-                    self.shared_insights['seasonality'] = {
-                        'best_month': best_month,
-                        'worst_month': worst_month
-                    }
-                    
-                    return result
-        
-        print("❌ No suitable temporal columns found")
+        print("[SKIP] No suitable temporal columns found")
         return None
 
 class MultiAgentCoordinator:
@@ -286,8 +267,8 @@ class MultiAgentCoordinator:
     
     def coordinate_analysis(self, data, max_agents=3):
         """Coordinate multiple agents to analyze data"""
-        print(f"\n🎯 Multi-Agent Coordinator: Starting coordinated analysis")
-        print(f"📊 Data shape: {data.shape}")
+        print(f"\n[COORDINATOR] Starting coordinated analysis")
+        print(f"[DATA] Data shape: {data.shape}")
         
         results = {}
         active_agents = []
@@ -295,19 +276,21 @@ class MultiAgentCoordinator:
         # Let each agent decide if they should participate
         for agent_type, agent in self.agents.items():
             context = agent.extract_context(data)
-            
-            if agent.should_act(context, threshold=0.1):  # Much lower threshold for participation
+            if agent.should_act(context):
                 active_agents.append(agent)
+                print(f"[PARTICIPATE] {agent.name} will participate")
+            else:
+                print(f"[SKIP] {agent.name} skipping (not suitable for this data)")
         
         if not active_agents:
-            print("❌ No agents decided to participate")
+            print("[ERROR] No agents decided to participate")
             return None
         
-        print(f"✅ Active agents: {[a.name for a in active_agents]}")
+        print(f"[ACTIVE] Active agents: {[a.name for a in active_agents]}")
         
-        # Execute analyses in order of specialization relevance
-        for agent in active_agents:
-            print(f"\n🔄 Executing {agent.name}...")
+        # Execute analyses
+        for i, agent in enumerate(active_agents):
+            print(f"\n[STEP {i+1}] Executing {agent.name}...")
             
             try:
                 result = agent.analyze(data)
@@ -323,26 +306,20 @@ class MultiAgentCoordinator:
                     # Send insights to other agents
                     for other_agent in active_agents:
                         if other_agent != agent and result:
-                            agent.send_message(
-                                other_agent, 
-                                'insight_share', 
-                                result.get('insights', 'Analysis completed')
-                            )
-                    
+                            agent.send_message(other_agent, 'insight_share', result.get('insights', 'Analysis completed'))
+                
                 else:
-                    # Negative reward for failed analysis
                     context = agent.extract_context(data)
                     agent.update_q_value(context, -0.5)
+                    print(f"[FAILED] {agent.name} analysis failed")
             
             except Exception as e:
-                print(f"❌ {agent.name} encountered error: {e}")
+                print(f"[ERROR] {agent.name} encountered error: {e}")
                 continue
         
-        # Synthesize results
+        # Record coordination episode
         synthesis = self.synthesize_results(results)
-        
         self.coordination_history.append({
-            'active_agents': [a.name for a in active_agents],
             'participating_agents': [a.name for a in active_agents],
             'results': results,
             'synthesis': synthesis
@@ -353,7 +330,7 @@ class MultiAgentCoordinator:
             'synthesis': synthesis,
             'participating_agents': [a.name for a in active_agents]
         }
-    
+
     def synthesize_results(self, results):
         """Combine insights from multiple agents"""
         print(f"\n🧠 Synthesizing insights from {len(results)} agents...")
@@ -401,6 +378,7 @@ class MultiAgentCoordinator:
                 print(f"   Average Q-value: {avg_q:.3f}")
             
             print(f"   Messages received: {len(agent.message_queue)}")
+
 
 def test_multi_agent_system():
     """Test the multi-agent coordination system"""

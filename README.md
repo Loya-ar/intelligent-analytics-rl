@@ -23,7 +23,7 @@ Three specialised agents (statistical, geographic and temporal) each learn, from
 |---|---|---|
 | **Contextual bandit (UCB)** | Picks one of seven analyses (descriptive stats, correlation, time series, regional comparison, product performance, clustering, trend) based on the dataset's context: size, domain, and whether it has numeric, regional or date columns | `src/agents/rl_analytics_agent.py` |
 | **Specialised agents** | Statistical (correlations, modelling), Geographic (regional patterns) and Temporal (trends, seasonality). Each keeps its own Q-values per context | `src/agents/multi_agent_coordinator.py` |
-| **Coordinator** | Selects agents for each episode, runs them in sequence, passes messages between them and gives a bonus reward for collaboration | `src/agents/multi_agent_coordinator.py` |
+| **Coordinator** | Lets each agent decide from fixed column rules whether it takes part, runs the participants in sequence, passes their insights to each other, and gives a bonus reward for collaboration | `src/agents/multi_agent_coordinator.py` |
 | **Analytics tools** | Correlation analysis with significance tests, k-means clustering with automatic *k*, time-series trend and seasonality detection, business KPIs | `src/tools/custom_analytics_tools.py` |
 | **Memory** | Saves learning and coordination history to SQLite so later runs start from what was learned before | `src/utils/memory_manager.py` |
 | **Evaluation** | Paired t-test, Wilcoxon test and effect sizes on the agents' reward history | `src/evaluation/statistical_validator.py` |
@@ -43,7 +43,7 @@ Output of `python run_demo.py`, which runs 6 coordination episodes on the sales 
 | Temporal | 5.10 | 0.461 | 1 | 0% |
 | **System** | **29.80** | | | |
 
-- Every episode succeeded (6 of 6).
+- In all 6 episodes at least one agent ran and returned an analysis result: all three agents on the sales data, only the Statistical agent on the marketing data. Which agents take part is decided by fixed rules on the data's columns, not learned.
 - The Statistical agent learned the most. Each agent keeps a separate Q-value for each kind of dataset, and Statistical's rose to 0.55 on the sales data and 1.22 on the marketing data, where it found more correlations.
 - The Geographic and Temporal agents settled after one context. Training on more varied datasets is the obvious next step.
 
@@ -51,7 +51,7 @@ Output of `python run_demo.py`, which runs 6 coordination episodes on the sales 
 
 ![Total reward by agent](docs/figures/04-reward-by-agent.png)
 
-> **Note on scope:** this is a small-scale demonstration: 6 episodes on synthetic data. The charts above are drawn from a real run by `scripts/make_figures.py`. The business numbers in the [technical report](docs/technical_report.md) (time saved, ROI) are **illustrative estimates**, not measurements.
+> **Note on scope:** this is a small-scale demonstration: 6 episodes on synthetic data. The charts above are drawn from a real run by `scripts/make_figures.py`. There's no baseline comparison or significance test yet, and business impact was not measured. The [technical report](docs/technical_report.md) explains what was and wasn't measured.
 
 ## Quick start
 
@@ -69,7 +69,7 @@ pip install -r requirements.txt
 python run_demo.py
 ```
 
-The demo finishes in a few seconds. It prints each agent's learning metrics and then opens a learning-curve plot. `run_demo.py` is self-contained: it has its own copy of the agents and coordinator, so it doesn't import from `src/`.
+The demo finishes in a few seconds. It prints each agent's learning metrics and then opens a learning-curve plot. `run_demo.py` and `scripts/make_figures.py` both use the agents in `src/agents/multi_agent_coordinator.py`, so the results below come from the same code you'll read in `src/`.
 
 ## Project structure
 
@@ -147,4 +147,4 @@ Dataset sizes are arguments to the generators in `src/utils/data_generator.py`, 
 
 Built by **Arjun Loya** for *Reinforcement Learning for Agentic AI Systems* at Northeastern University, August 2025. The full write-up is in [`docs/technical_report.md`](docs/technical_report.md).
 
-Free to use for educational and research purposes. For commercial use, please contact the author.
+Released under the [MIT License](LICENSE).
