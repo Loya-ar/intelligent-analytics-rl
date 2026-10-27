@@ -4,7 +4,7 @@
 
 Three specialised agents (statistical, geographic and temporal) each learn, from reward feedback, which analytical approach works best for a given kind of data. A coordinator decides which agents take part in each episode, passes insights between them and combines their findings.
 
-![System architecture](docs/figures/01-system-architecture.png)
+![System architecture](docs/figures/01-architecture.png)
 
 ## Contents
 
@@ -14,7 +14,6 @@ Three specialised agents (statistical, geographic and temporal) each learn, from
 - [Project structure](#project-structure)
 - [Running individual components](#running-individual-components)
 - [Configuration](#configuration)
-- [Figures](#figures)
 - [Troubleshooting](#troubleshooting)
 - [About](#about)
 
@@ -28,6 +27,8 @@ Three specialised agents (statistical, geographic and temporal) each learn, from
 | **Analytics tools** | Correlation analysis with significance tests, k-means clustering with automatic *k*, time-series trend and seasonality detection, business KPIs | `src/tools/custom_analytics_tools.py` |
 | **Memory** | Saves learning and coordination history to SQLite so later runs start from what was learned before | `src/utils/memory_manager.py` |
 | **Evaluation** | Paired t-test, Wilcoxon test and effect sizes on the agents' reward history | `src/evaluation/statistical_validator.py` |
+
+![One coordination episode](docs/figures/02-learning-loop.png)
 
 Agents are trained on three synthetic datasets generated with Faker (seeded): **10,000** sales transactions, **5,000** marketing campaigns and **2,000** HR records.
 
@@ -43,12 +44,14 @@ Output of `python run_demo.py`, which runs 6 coordination episodes on the sales 
 | **System** | **29.80** | | | |
 
 - Every episode succeeded (6 of 6).
-- The Statistical agent learned the most. Its Q-value rose from 0 to 1.22 over its episodes, as the learning curves show.
+- The Statistical agent learned the most. Each agent keeps a separate Q-value for each kind of dataset, and Statistical's rose to 0.55 on the sales data and 1.22 on the marketing data, where it found more correlations.
 - The Geographic and Temporal agents settled after one context. Training on more varied datasets is the obvious next step.
 
-![Learning curves](docs/figures/04-learning-curves.png)
+![Learning curves](docs/figures/03-learning-curves.png)
 
-> **Note on scope:** this is a small-scale demonstration with 6 episodes on synthetic data. The business-impact figure further down, and the related numbers in the [technical report](docs/technical_report.md) (time saved, ROI), are **illustrative estimates** entered by hand in `scripts/make_figures.py`. They were not measured.
+![Total reward by agent](docs/figures/04-reward-by-agent.png)
+
+> **Note on scope:** this is a small-scale demonstration: 6 episodes on synthetic data. The charts above are drawn from a real run by `scripts/make_figures.py`. The business numbers in the [technical report](docs/technical_report.md) (time saved, ROI) are **illustrative estimates**, not measurements.
 
 ## Quick start
 
@@ -87,10 +90,10 @@ intelligent-analytics-rl/
 │   │   ├── data_generator.py         # Synthetic sales / marketing / HR data
 │   │   └── memory_manager.py         # SQLite learning persistence
 │   └── visualization/
-│       ├── architecture_diagram.py   # Architecture and flow diagrams
+│       ├── architecture_diagram.py   # Older diagram generator (writes to results/)
 │       └── learning_dashboard.py     # Learning and coordination plots
 ├── scripts/
-│   ├── make_figures.py               # Presentation figures
+│   ├── make_figures.py               # README figures, from a real training run
 │   └── make_report.py                # Technical report generator
 ├── data/                             # Generated CSV datasets
 └── docs/
@@ -98,7 +101,7 @@ intelligent-analytics-rl/
     └── figures/                      # Figures used in this README
 ```
 
-Scripts write their output to `results/` and to `data/memory/`. Both folders are git-ignored, so running the code never changes tracked files.
+Scripts write their output to `results/` and `data/memory/`. Both folders are git-ignored. The one exception is `scripts/make_figures.py`, which deliberately rewrites the figures in `docs/figures/`.
 
 ## Running individual components
 
@@ -112,10 +115,10 @@ Run everything from the repository root:
 | `python -m src.tools.custom_analytics_tools` | Demonstrates each analytics tool |
 | `python -m src.evaluation.statistical_validator` | Statistical validation on example reward histories |
 | `python -m src.visualization.learning_dashboard` | Trains briefly, then plots specialisation and coordination |
-| `python -m src.visualization.architecture_diagram` | Regenerates the architecture diagrams |
+| `python -m src.visualization.architecture_diagram` | Older architecture diagrams, written to `results/diagrams/` |
 | `python -m src.utils.memory_manager` | Tests saving and loading learning memory |
 | `python -m src.utils.data_generator` | Regenerates the datasets in `data/` (dates are relative to today) |
-| `python scripts/make_figures.py` | Regenerates the presentation figures |
+| `python scripts/make_figures.py` | Retrains the agents and redraws the README figures in `docs/figures/` |
 | `python scripts/make_report.py` | Regenerates the technical report |
 
 ## Configuration
@@ -131,42 +134,6 @@ The main parameters are constructor arguments:
 The collaboration bonus (`+0.2` reward when an agent has received messages from other agents) is set in `calculate_reward` in `src/agents/multi_agent_coordinator.py`.
 
 Dataset sizes are arguments to the generators in `src/utils/data_generator.py`, for example `generate_sales_data(n_records=10000)`.
-
-## Figures
-
-<details>
-<summary><b>Architecture and algorithm</b></summary>
-
-**RL algorithm flow**
-![RL algorithm flow](docs/figures/02-rl-algorithm-flow.png)
-
-**Agent interactions**
-![Agent interactions](docs/figures/03-agent-interactions.png)
-
-**Technical overview**
-![Technical overview](docs/figures/07-technical-overview.png)
-
-</details>
-
-<details>
-<summary><b>Learning and coordination</b></summary>
-
-**Learning progression**
-![Learning progression](docs/figures/05-learning-progression.png)
-
-**Agent coordination**
-![Agent coordination](docs/figures/06-agent-coordination.png)
-
-</details>
-
-<details>
-<summary><b>Business impact (illustrative estimates)</b></summary>
-
-These values are hand-entered estimates, not measurements. See the [note on scope](#results).
-
-![Business impact (illustrative)](docs/figures/08-business-impact-illustrative.png)
-
-</details>
 
 ## Troubleshooting
 
