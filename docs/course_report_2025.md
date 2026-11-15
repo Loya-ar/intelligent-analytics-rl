@@ -1,5 +1,7 @@
 # Intelligent Analytics Assistant: Technical Report
 
+> **Historical document.** This is the original course write-up (August 2025). It describes the code at git tag `course-submission-2025`, which this repository no longer contains: synthetic data, 6 episodes, and per-context reward averages that didn't drive any decision. The current project (a bandit benchmark on real data) is described in the [README](../README.md).
+
 **Author**: Arjun Loya
 **Course**: Reinforcement Learning for Agentic AI Systems, Northeastern University
 **Date**: August 2025

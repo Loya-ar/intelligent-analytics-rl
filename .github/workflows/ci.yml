@@ -1,0 +1,61 @@
+name: CI
+
+# Free: GitHub Actions minutes are unlimited for public repositories.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    # Unit tests on synthetic data: reward math, reproducibility, bandits, regret, LLM parsing.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+      - run: pip install -r requirements-dev.txt
+      - run: pytest -v
+
+  reproduce:
+    # Replays every method on the committed reward table and cached LLM answers (no API key,
+    # no download) and fails if any committed result changes.
+    needs: tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: pip install -r requirements.txt
+      - run: python run_all.py --replay
+      - name: Check results match the committed versions
+        run: git diff --exit-code -- reports/results.md reports/results.json
+
+  rebuild-check:
+    # Downloads the four datasets (~50 MB, checksums verified) and checks that rebuilding
+    # episodes from raw data gives exactly the committed reward-table rows.
+    needs: tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: pip install -r requirements.txt
+      - run: python scripts/check_table_rows.py
