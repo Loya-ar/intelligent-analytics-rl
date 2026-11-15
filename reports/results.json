@@ -1,0 +1,462 @@
+{
+  "config": {
+    "n_episodes": 400,
+    "seeds": 20
+  },
+  "table": {
+    "episodes": 1200,
+    "per_dataset": {
+      "hillstrom": 300,
+      "retail": 300,
+      "taxi": 300,
+      "telco": 300
+    },
+    "arm_mean_reward": {
+      "descriptive_stats": 0.2432,
+      "correlation": 0.7003,
+      "time_series": 0.0566,
+      "regional_comparison": 0.074,
+      "product_performance": 0.4034,
+      "clustering": 0.3243,
+      "trend": -0.0189
+    },
+    "share_of_episodes_where_arm_is_best": {
+      "correlation": 0.615,
+      "product_performance": 0.178,
+      "clustering": 0.124,
+      "descriptive_stats": 0.051,
+      "regional_comparison": 0.023,
+      "time_series": 0.008
+    },
+    "oracle_arm_by_context": {
+      "hillstrom/large": "correlation",
+      "hillstrom/medium": "correlation",
+      "hillstrom/small": "clustering",
+      "retail/large": "correlation",
+      "retail/medium": "correlation",
+      "retail/small": "correlation",
+      "taxi/large": "correlation",
+      "taxi/medium": "product_performance",
+      "taxi/small": "correlation",
+      "telco/large": "product_performance",
+      "telco/medium": "product_performance",
+      "telco/small": "product_performance"
+    }
+  },
+  "benchmark": {
+    "Random": {
+      "pct_of_oracle": [
+        34.242,
+        1.0943
+      ],
+      "pct_of_oracle_last100": [
+        34.4756,
+        2.4333
+      ],
+      "pct_of_hindsight_best": [
+        30.2,
+        0.9896
+      ],
+      "final_regret": [
+        188.824,
+        3.4745
+      ],
+      "mean_reward": [
+        0.2459,
+        0.0084
+      ]
+    },
+    "Fixed rules (old code)": {
+      "pct_of_oracle": [
+        96.1331,
+        0.5973
+      ],
+      "pct_of_oracle_last100": [
+        96.3415,
+        1.4866
+      ],
+      "pct_of_hindsight_best": [
+        84.7774,
+        0.5199
+      ],
+      "final_regret": [
+        11.1447,
+        1.7587
+      ],
+      "mean_reward": [
+        0.6901,
+        0.0053
+      ]
+    },
+    "Best single arm (correlation, hindsight)": {
+      "pct_of_oracle": [
+        96.1331,
+        0.5973
+      ],
+      "pct_of_oracle_last100": [
+        96.3415,
+        1.4866
+      ],
+      "pct_of_hindsight_best": [
+        84.7774,
+        0.5199
+      ],
+      "final_regret": [
+        11.1447,
+        1.7587
+      ],
+      "mean_reward": [
+        0.6901,
+        0.0053
+      ]
+    },
+    "epsilon-greedy": {
+      "pct_of_oracle": [
+        78.6953,
+        0.8184
+      ],
+      "pct_of_oracle_last100": [
+        91.9632,
+        1.7654
+      ],
+      "pct_of_hindsight_best": [
+        69.4063,
+        0.8568
+      ],
+      "final_regret": [
+        61.1982,
+        2.5243
+      ],
+      "mean_reward": [
+        0.5649,
+        0.0071
+      ]
+    },
+    "UCB1": {
+      "pct_of_oracle": [
+        53.3497,
+        0.6481
+      ],
+      "pct_of_oracle_last100": [
+        60.4295,
+        2.4974
+      ],
+      "pct_of_hindsight_best": [
+        47.055,
+        0.6948
+      ],
+      "final_regret": [
+        133.9483,
+        2.0403
+      ],
+      "mean_reward": [
+        0.383,
+        0.0064
+      ]
+    },
+    "Thompson sampling": {
+      "pct_of_oracle": [
+        78.2229,
+        1.0314
+      ],
+      "pct_of_oracle_last100": [
+        93.0273,
+        1.8359
+      ],
+      "pct_of_hindsight_best": [
+        68.9806,
+        0.8702
+      ],
+      "final_regret": [
+        62.5865,
+        3.2579
+      ],
+      "mean_reward": [
+        0.5614,
+        0.0071
+      ]
+    },
+    "LinUCB": {
+      "pct_of_oracle": [
+        82.0244,
+        0.7156
+      ],
+      "pct_of_oracle_last100": [
+        93.3612,
+        1.5738
+      ],
+      "pct_of_hindsight_best": [
+        72.3458,
+        0.8611
+      ],
+      "final_regret": [
+        51.6132,
+        2.0747
+      ],
+      "mean_reward": [
+        0.5889,
+        0.0079
+      ]
+    },
+    "Oracle (best arm per context)": {
+      "pct_of_oracle": [
+        100.0,
+        0.0
+      ],
+      "pct_of_oracle_last100": [
+        100.0,
+        0.0
+      ],
+      "pct_of_hindsight_best": [
+        88.1956,
+        0.5634
+      ],
+      "final_regret": [
+        0.0,
+        0.0
+      ],
+      "mean_reward": [
+        0.7179,
+        0.0067
+      ]
+    }
+  },
+  "paired_tests": [
+    {
+      "method": "epsilon-greedy",
+      "vs": "Fixed rules (old code)",
+      "window": "all 400",
+      "reward_diff": -50.053,
+      "t_p": 3.95e-22,
+      "wilcoxon_p": 1.91e-06,
+      "t_p_holm": 2.77e-21,
+      "wilcoxon_p_holm": 1.53e-05
+    },
+    {
+      "method": "epsilon-greedy",
+      "vs": "Fixed rules (old code)",
+      "window": "last 100",
+      "reward_diff": -3.095,
+      "t_p": 7.65e-06,
+      "wilcoxon_p": 3.81e-06,
+      "t_p_holm": 2.29e-05,
+      "wilcoxon_p_holm": 1.53e-05
+    },
+    {
+      "method": "UCB1",
+      "vs": "Fixed rules (old code)",
+      "window": "all 400",
+      "reward_diff": -122.804,
+      "t_p": 1.75e-28,
+      "wilcoxon_p": 1.91e-06,
+      "t_p_holm": 1.4e-27,
+      "wilcoxon_p_holm": 1.53e-05
+    },
+    {
+      "method": "UCB1",
+      "vs": "Fixed rules (old code)",
+      "window": "last 100",
+      "reward_diff": -25.418,
+      "t_p": 6.42e-17,
+      "wilcoxon_p": 1.91e-06,
+      "t_p_holm": 2.57e-16,
+      "wilcoxon_p_holm": 1.53e-05
+    },
+    {
+      "method": "Thompson sampling",
+      "vs": "Fixed rules (old code)",
+      "window": "all 400",
+      "reward_diff": -51.442,
+      "t_p": 6.56e-20,
+      "wilcoxon_p": 1.91e-06,
+      "t_p_holm": 3.93e-19,
+      "wilcoxon_p_holm": 1.53e-05
+    },
+    {
+      "method": "Thompson sampling",
+      "vs": "Fixed rules (old code)",
+      "window": "last 100",
+      "reward_diff": -2.326,
+      "t_p": 0.00561,
+      "wilcoxon_p": 0.00271,
+      "t_p_holm": 0.00561,
+      "wilcoxon_p_holm": 0.00271
+    },
+    {
+      "method": "LinUCB",
+      "vs": "Fixed rules (old code)",
+      "window": "all 400",
+      "reward_diff": -40.468,
+      "t_p": 1.02e-18,
+      "wilcoxon_p": 1.91e-06,
+      "t_p_holm": 5.12e-18,
+      "wilcoxon_p_holm": 1.53e-05
+    },
+    {
+      "method": "LinUCB",
+      "vs": "Fixed rules (old code)",
+      "window": "last 100",
+      "reward_diff": -2.115,
+      "t_p": 0.00174,
+      "wilcoxon_p": 0.00102,
+      "t_p_holm": 0.00348,
+      "wilcoxon_p_holm": 0.00203
+    }
+  ],
+  "transfer": {
+    "hillstrom": {
+      "LinUCB, pre-trained on other 3": [
+        79.6898,
+        2.7111
+      ],
+      "LinUCB, cold start": [
+        79.5264,
+        2.2844
+      ],
+      "Random": [
+        30.0447,
+        3.8987
+      ],
+      "Fixed rules (old code)": [
+        98.7776,
+        2.711
+      ],
+      "Best arm on other 3 (correlation)": [
+        98.7776,
+        2.711
+      ]
+    },
+    "retail": {
+      "LinUCB, pre-trained on other 3": [
+        70.1644,
+        1.2782
+      ],
+      "LinUCB, cold start": [
+        65.0952,
+        1.0505
+      ],
+      "Random": [
+        18.0216,
+        1.8254
+      ],
+      "Fixed rules (old code)": [
+        100.0,
+        0.0
+      ],
+      "Best arm on other 3 (correlation)": [
+        100.0,
+        0.0
+      ]
+    },
+    "taxi": {
+      "LinUCB, pre-trained on other 3": [
+        84.0668,
+        2.5371
+      ],
+      "LinUCB, cold start": [
+        81.1668,
+        1.708
+      ],
+      "Random": [
+        39.2766,
+        2.959
+      ],
+      "Fixed rules (old code)": [
+        100.5817,
+        1.7553
+      ],
+      "Best arm on other 3 (correlation)": [
+        100.5817,
+        1.7553
+      ]
+    },
+    "telco": {
+      "LinUCB, pre-trained on other 3": [
+        90.8959,
+        0.9569
+      ],
+      "LinUCB, cold start": [
+        87.153,
+        0.4321
+      ],
+      "Random": [
+        44.0505,
+        1.9673
+      ],
+      "Fixed rules (old code)": [
+        90.7717,
+        0.8988
+      ],
+      "Best arm on other 3 (correlation)": [
+        90.7717,
+        0.8988
+      ]
+    }
+  },
+  "transfer_tests": {
+    "hillstrom": {
+      "pct_diff": 0.16,
+      "t_p": 0.893,
+      "wilcoxon_p": 0.294,
+      "t_p_holm": 0.893,
+      "wilcoxon_p_holm": 0.294
+    },
+    "retail": {
+      "pct_diff": 5.07,
+      "t_p": 3.94e-08,
+      "wilcoxon_p": 5.72e-06,
+      "t_p_holm": 1.57e-07,
+      "wilcoxon_p_holm": 2.29e-05
+    },
+    "taxi": {
+      "pct_diff": 2.9,
+      "t_p": 0.02,
+      "wilcoxon_p": 0.024,
+      "t_p_holm": 0.04,
+      "wilcoxon_p_holm": 0.0479
+    },
+    "telco": {
+      "pct_diff": 3.74,
+      "t_p": 7.31e-07,
+      "wilcoxon_p": 1.34e-05,
+      "t_p_holm": 2.19e-06,
+      "wilcoxon_p_holm": 4.01e-05
+    }
+  },
+  "llm": {
+    "model": "gemini-3.5-flash-lite",
+    "episodes": 100,
+    "api_calls": 62,
+    "pct_of_oracle": {
+      "LLM (gemini-3.5-flash-lite, zero-shot)": 45.81,
+      "LinUCB after 400 learning episodes (mean of 20 seeds)": 97.15,
+      "Best single arm (correlation, hindsight)": 94.69,
+      "Fixed rules (old code)": 94.69,
+      "Random (expected)": 33.08
+    },
+    "invalid_answers": 0,
+    "picks": {
+      "descriptive_stats": 75,
+      "correlation": 18,
+      "regional_comparison": 3,
+      "time_series": 2,
+      "product_performance": 2
+    },
+    "latency_s_median": 0.698,
+    "latency_s_p90": 0.939,
+    "tokens_per_decision": 436.4193548387097,
+    "paired_tests": {
+      "LLM vs fixed rules": {
+        "reward_diff": -0.345,
+        "t_p": 9.48e-13,
+        "wilcoxon_p": 5.25e-10
+      },
+      "LLM vs random (expected)": {
+        "reward_diff": 0.09,
+        "t_p": 0.00143,
+        "wilcoxon_p": 0.0029
+      }
+    },
+    "cost_note": "$0 (Gemini API free tier, no billing account)."
+  }
+}

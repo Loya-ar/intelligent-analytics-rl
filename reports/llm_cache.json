@@ -1,0 +1,560 @@
+{
+ "ed9f768da0396c887446184fb2a3f07d575c2f57c530d0c9e527ab9ad4991359": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 1,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 1.195,
+  "prompt_tokens": 441,
+  "output_tokens": 9,
+  "total_tokens": 450
+ },
+ "e6e1d23cf61041f9858a057887ffe533e3a8c05e20b335f8ea377fe52d3ca044": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 15,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.767,
+  "prompt_tokens": 429,
+  "output_tokens": 9,
+  "total_tokens": 438
+ },
+ "0ef6e2dee2c0ded2e452b1c72c745fe7209d53188ed772f9de2bcd11aaa29384": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 35,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.749,
+  "prompt_tokens": 440,
+  "output_tokens": 9,
+  "total_tokens": 449
+ },
+ "435a30c497e34cbb3740f5cb9cc445fd09de9daab57e7b85a0980f759889a8f6": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 38,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.714,
+  "prompt_tokens": 438,
+  "output_tokens": 9,
+  "total_tokens": 447
+ },
+ "e77f47117547afa71b3189b0a7a7820c806a61e79e34c2877600db1c49294182": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 63,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.83,
+  "prompt_tokens": 429,
+  "output_tokens": 9,
+  "total_tokens": 438
+ },
+ "18250567969f30cdbeee28f81b1b71f6863cdb0bf951deb4db144f7012e2a34a": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 83,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 1.056,
+  "prompt_tokens": 428,
+  "output_tokens": 9,
+  "total_tokens": 437
+ },
+ "ef67d7f613bb8fd4cbf5648a39263d6a71eae080432da042124d84df015d8f2d": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 90,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.867,
+  "prompt_tokens": 428,
+  "output_tokens": 9,
+  "total_tokens": 437
+ },
+ "c22da7d7a92d88e4f5a87cd4a13d937cd8a96eb881912b30d972134770dea0ab": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 138,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.919,
+  "prompt_tokens": 440,
+  "output_tokens": 9,
+  "total_tokens": 449
+ },
+ "a408da48445b838cdf0ee945d87fe387ef8cc21ab47925f4e2d4c5db56b763d9": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 144,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.73,
+  "prompt_tokens": 428,
+  "output_tokens": 9,
+  "total_tokens": 437
+ },
+ "a9a502a7e4eb7c285140ad1589a7efb4ae77ca42e8001095ca66960d53e1fe05": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 173,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.629,
+  "prompt_tokens": 441,
+  "output_tokens": 9,
+  "total_tokens": 450
+ },
+ "0348e2fd0291ed34fdb8c4b9cd8134f766fe5d1d9951f3cd958e1095f109dede": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 190,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.725,
+  "prompt_tokens": 440,
+  "output_tokens": 9,
+  "total_tokens": 449
+ },
+ "172c1016e59c822fc02c0f99c6da15b15badf832ed9aee4e5edcda5c7c950b49": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 217,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.665,
+  "prompt_tokens": 439,
+  "output_tokens": 9,
+  "total_tokens": 448
+ },
+ "3a56a8c091a18baebb46f4d0d713a5fcd568d4b66de475f15a3113e4fffb43bf": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 233,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.644,
+  "prompt_tokens": 440,
+  "output_tokens": 9,
+  "total_tokens": 449
+ },
+ "34d936836124d71166d62ada7896173693f6e08967a1d9665fc275b03732253f": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 238,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.73,
+  "prompt_tokens": 429,
+  "output_tokens": 9,
+  "total_tokens": 438
+ },
+ "ef69596275640a0d184969a66a22138da4167143ad70f8f76f5f0d5e3e272412": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 250,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.732,
+  "prompt_tokens": 428,
+  "output_tokens": 9,
+  "total_tokens": 437
+ },
+ "d7b7ec6bf218ffd74da9640483ae2c5904f6eb454b1c614db34f4f2ece378ea4": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 262,
+  "text": "{\n  \"analysis\": \"descriptive_stats\"\n}",
+  "latency_s": 0.722,
+  "prompt_tokens": 441,
+  "output_tokens": 14,
+  "total_tokens": 455
+ },
+ "1669c09fe9944c8781b48a975fa36f723e2ade6d70fedf17623a2a94adb8a52e": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 286,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.768,
+  "prompt_tokens": 441,
+  "output_tokens": 9,
+  "total_tokens": 450
+ },
+ "0009d40bf25d01c86a78f1aaddc2313aef50ce9fe0b2e793de066477fb5db6f5": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 303,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.724,
+  "prompt_tokens": 400,
+  "output_tokens": 9,
+  "total_tokens": 409
+ },
+ "aed85df7a6f4b144e27cbe1c563d49445f3a12b752423d407c52de708880c995": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 356,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.681,
+  "prompt_tokens": 400,
+  "output_tokens": 9,
+  "total_tokens": 409
+ },
+ "cb7de3b2154ed16166c0d18ffe578707585d6660942d1aff51d5786c99e166d6": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 376,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.554,
+  "prompt_tokens": 413,
+  "output_tokens": 9,
+  "total_tokens": 422
+ },
+ "20d3bd331333eaadb822c5974c5d811d11cfa3f52f11b71fb31f1fe5a13398ef": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 410,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.674,
+  "prompt_tokens": 399,
+  "output_tokens": 9,
+  "total_tokens": 408
+ },
+ "bcde802a166a85b49eed9dc6f20c16fef8fd4c3533734a38e107481ff8bc0fb6": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 430,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.665,
+  "prompt_tokens": 412,
+  "output_tokens": 9,
+  "total_tokens": 421
+ },
+ "2e012ee2b5391e607fad55b0f9f143b6ed4f9f4446a15e1359b5e1dfbc1b8cb6": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 443,
+  "text": "{\"analysis\": \"regional_comparison\"}",
+  "latency_s": 0.778,
+  "prompt_tokens": 412,
+  "output_tokens": 8,
+  "total_tokens": 420
+ },
+ "47aa6b10e06160afc6429aa47855f535c5e45b640fa8935256646d0a571b0ee6": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 504,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.51,
+  "prompt_tokens": 413,
+  "output_tokens": 9,
+  "total_tokens": 422
+ },
+ "62979efeffc5965697c91a16de8eef9c81f4faea5767080b58ac3d634ef72774": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 527,
+  "text": "{\"analysis\": \"time_series\"}",
+  "latency_s": 1.213,
+  "prompt_tokens": 412,
+  "output_tokens": 8,
+  "total_tokens": 420
+ },
+ "d9b755fa27d930145f2aa5c2688725cc589dd36cc106a8878d186e647339bf70": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 561,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.599,
+  "prompt_tokens": 411,
+  "output_tokens": 9,
+  "total_tokens": 420
+ },
+ "4de16a4dc5e618a958b82523cdd0dc358d646d86cf269eeb7f4303a2d5ac925e": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 616,
+  "text": "{\"analysis\": \"correlation\"}",
+  "latency_s": 0.71,
+  "prompt_tokens": 438,
+  "output_tokens": 6,
+  "total_tokens": 444
+ },
+ "a63de477b2ff661abb6a80dacae0cf9c15f7ed6dceff9ad014c94cbc6151f83d": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 630,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.544,
+  "prompt_tokens": 428,
+  "output_tokens": 9,
+  "total_tokens": 437
+ },
+ "f582f674dc0897b7d713d88fbcd18b85cc765e68578eda7ce7ca592fb5df0981": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 643,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.682,
+  "prompt_tokens": 440,
+  "output_tokens": 9,
+  "total_tokens": 449
+ },
+ "cefbc2ba5e55b254df532b732074b0f572be07c845a35325d0814663a2a6a789": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 664,
+  "text": "{\"analysis\": \"correlation\"}",
+  "latency_s": 0.703,
+  "prompt_tokens": 428,
+  "output_tokens": 6,
+  "total_tokens": 434
+ },
+ "36f8d097ec16b7a6cc91731096132f415366d8a73b719850acdc4055c89d85de": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 692,
+  "text": "{\"analysis\": \"regional_comparison\"}",
+  "latency_s": 0.75,
+  "prompt_tokens": 428,
+  "output_tokens": 8,
+  "total_tokens": 436
+ },
+ "e44d42b868862e41cbc36a9f58e4cc99a0d91a2e04f8773af672dd85027961bc": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 710,
+  "text": "{\"analysis\": \"correlation\"}",
+  "latency_s": 0.548,
+  "prompt_tokens": 428,
+  "output_tokens": 6,
+  "total_tokens": 434
+ },
+ "df9b894bb5bd54ece549365f42ee8b532303df17f2039f6daa68271fcc980298": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 711,
+  "text": "{\"analysis\": \"correlation\"}",
+  "latency_s": 0.764,
+  "prompt_tokens": 440,
+  "output_tokens": 6,
+  "total_tokens": 446
+ },
+ "eefa4d74690af40f13290755cbba88e97d719ea7f7e3f782cc6e274cf4f7dcb8": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 716,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.941,
+  "prompt_tokens": 440,
+  "output_tokens": 9,
+  "total_tokens": 449
+ },
+ "7eb22947933dc649775ca435cfe7c436bf4576101b8be7e04a2b23cd880e3b60": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 717,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.664,
+  "prompt_tokens": 427,
+  "output_tokens": 9,
+  "total_tokens": 436
+ },
+ "95b859d5777610b74c9476f88fe6b9858fd93002df43b8f51ec5d14a91f36db9": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 730,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.609,
+  "prompt_tokens": 426,
+  "output_tokens": 9,
+  "total_tokens": 435
+ },
+ "bb92237fdb16d564a3a6097ffce6b0999c4a2b305f668afff71ac0c0d422ad70": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 733,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.574,
+  "prompt_tokens": 427,
+  "output_tokens": 9,
+  "total_tokens": 436
+ },
+ "8ae4fccfeabc3451b8489ed2e688d2275439965dbcbedf01e68b8797a70339b1": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 769,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.616,
+  "prompt_tokens": 426,
+  "output_tokens": 9,
+  "total_tokens": 435
+ },
+ "a68c2153e371eb7054eb51093a4474ed9e0689ae4959a4bfdc7bf59167004578": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 771,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.535,
+  "prompt_tokens": 438,
+  "output_tokens": 9,
+  "total_tokens": 447
+ },
+ "c24444535c74b6b9b575a7cba34c693aea44b20f36d2a8b0305da4f3b06400c1": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 787,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.665,
+  "prompt_tokens": 439,
+  "output_tokens": 9,
+  "total_tokens": 448
+ },
+ "17f8d32bd73d84b8c8dbf0a1904b61f59a00d82ee4c74a1581311c7706675514": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 790,
+  "text": "{\"analysis\": \"time_series\"}",
+  "latency_s": 0.79,
+  "prompt_tokens": 440,
+  "output_tokens": 8,
+  "total_tokens": 448
+ },
+ "8081d103276596ae64859d3417799647b8fcf8cd4535663ab45b9b8d53223253": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 837,
+  "text": "{\n  \"analysis\": \"correlation\"\n}",
+  "latency_s": 0.634,
+  "prompt_tokens": 439,
+  "output_tokens": 11,
+  "total_tokens": 450
+ },
+ "3512b0d3c9aed12c713be05cf89e60d364d95fae261967f94fd1367da9ec03b1": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 888,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.958,
+  "prompt_tokens": 440,
+  "output_tokens": 9,
+  "total_tokens": 449
+ },
+ "fad06f5ae0f30681bb071d2848b46fbef51d30679bccd0328f8c469426779045": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 893,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.679,
+  "prompt_tokens": 439,
+  "output_tokens": 9,
+  "total_tokens": 448
+ },
+ "8e313eca66dec3e46cd4da4b7df29f9e9e7e8a38f76d6de016b22d3713338874": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 898,
+  "text": "{\"analysis\": \"correlation\"}",
+  "latency_s": 0.664,
+  "prompt_tokens": 439,
+  "output_tokens": 6,
+  "total_tokens": 445
+ },
+ "513e1690cf5fe5f6c5b31c2fa5551de5a01b8fe8bb4392fdcf73e621019b6cc1": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 914,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.634,
+  "prompt_tokens": 421,
+  "output_tokens": 9,
+  "total_tokens": 430
+ },
+ "1b834012f05db0e481a828f03749228ea887c01dbd6b2c9f19aed1e4a65befc7": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 936,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.667,
+  "prompt_tokens": 422,
+  "output_tokens": 9,
+  "total_tokens": 431
+ },
+ "734ae942fe76693d0338afded6f060e60abf3ebc95498857eec4d990d1bb3428": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 941,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.694,
+  "prompt_tokens": 422,
+  "output_tokens": 9,
+  "total_tokens": 431
+ },
+ "0b3e181d13ba1252f2e663848754a5c87ca96d6bb7b66f6b9bf83d0d00659867": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 953,
+  "text": "{\"analysis\": \"correlation\"}",
+  "latency_s": 0.699,
+  "prompt_tokens": 426,
+  "output_tokens": 6,
+  "total_tokens": 432
+ },
+ "5d511933608b75d33875dc66faf1ffc1f40350db07034e7f136a712e6cc0fae2": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 955,
+  "text": "{\"analysis\": \"correlation\"}",
+  "latency_s": 0.718,
+  "prompt_tokens": 426,
+  "output_tokens": 6,
+  "total_tokens": 432
+ },
+ "3d2b0cc83e549062bd9f6cfb7a0a0734984808fd7f120efe95cfb544bab594f9": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 971,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.659,
+  "prompt_tokens": 425,
+  "output_tokens": 9,
+  "total_tokens": 434
+ },
+ "66fabb21bda4a0eaf84e6f05f8086081a0ac030871afce9e97f6633b182fb4c3": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 980,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.694,
+  "prompt_tokens": 422,
+  "output_tokens": 9,
+  "total_tokens": 431
+ },
+ "01e5aee3125269f38c8a936bad05d560966c5cc9ad17dc8e247f6e2048c84bbe": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 1047,
+  "text": "{\"analysis\": \"product_performance\"}",
+  "latency_s": 0.688,
+  "prompt_tokens": 422,
+  "output_tokens": 8,
+  "total_tokens": 430
+ },
+ "c319112d3f0fd13f3f5bc5e0bcbb236fc023f629f4dc128b38fde734db331fb3": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 1062,
+  "text": "{\"analysis\": \"correlation\"}",
+  "latency_s": 0.696,
+  "prompt_tokens": 426,
+  "output_tokens": 6,
+  "total_tokens": 432
+ },
+ "2937f43b6b381dd99437b00010f9a6308a5d6539ca6953df41507c46cbbbacc1": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 1082,
+  "text": "{\"analysis\": \"correlation\"}",
+  "latency_s": 0.89,
+  "prompt_tokens": 422,
+  "output_tokens": 6,
+  "total_tokens": 428
+ },
+ "89a2031bc78cc2fa4da0c61f11ee03094ad0cd56f762dea6213f3da1adcfcc8a": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 1092,
+  "text": "{\n  \"analysis\": \"descriptive_stats\"\n}",
+  "latency_s": 1.082,
+  "prompt_tokens": 423,
+  "output_tokens": 14,
+  "total_tokens": 437
+ },
+ "701bd2a815fcafd019bcca9f2b3eff05de996db08915ab667ef4e8e61aa521ed": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 1135,
+  "text": "{\"analysis\": \"correlation\"}",
+  "latency_s": 0.703,
+  "prompt_tokens": 421,
+  "output_tokens": 6,
+  "total_tokens": 427
+ },
+ "b334753c018329e4d247be4a5788f0c2d4e78f30c3f187e3dcbd53769ceab419": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 1136,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.658,
+  "prompt_tokens": 424,
+  "output_tokens": 9,
+  "total_tokens": 433
+ },
+ "2fbc2ae5337ee11c32b08a863d3722d4301332839b7e77583239f45d27448b06": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 1156,
+  "text": "{\"analysis\": \"product_performance\"}",
+  "latency_s": 0.6,
+  "prompt_tokens": 426,
+  "output_tokens": 8,
+  "total_tokens": 434
+ },
+ "5b534191ffc8df6cb655f5b68c8131e7330757ba92ad06248ae7f893c9f5a321": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 1163,
+  "text": "{\n  \"analysis\": \"descriptive_stats\"\n}",
+  "latency_s": 1.194,
+  "prompt_tokens": 422,
+  "output_tokens": 14,
+  "total_tokens": 436
+ },
+ "5c6672af3b3e5e4c7bc2ac9ce4307faf6db837c583de44d41e6971bf5ff8d5f2": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 1170,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.609,
+  "prompt_tokens": 422,
+  "output_tokens": 9,
+  "total_tokens": 431
+ },
+ "706ae46826f3b8530f5f6be890d03ac86a4a49a1cc72c42f7ca2697bae8ddc3e": {
+  "model": "gemini-3.5-flash-lite",
+  "episode": 1173,
+  "text": "{\"analysis\": \"descriptive_stats\"}",
+  "latency_s": 0.777,
+  "prompt_tokens": 425,
+  "output_tokens": 9,
+  "total_tokens": 434
+ }
+}

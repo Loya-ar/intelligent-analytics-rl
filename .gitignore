@@ -18,3 +18,7 @@ Thumbs.db
 
 # Secrets
 .env
+
+# Downloaded and cleaned datasets (re-create with python run_all.py; licenses vary)
+data/raw/
+data/processed/
